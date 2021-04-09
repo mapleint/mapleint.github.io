@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    html {
+        width: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        background-color: #22222f;
+        max-width: 944px;
+        margin: 0 auto;
+
+        padding: 0 24px;
+    }
+    h1 {
+        font-size: 64px;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #0fef0f;
+    }
+p {
+
+  font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+    text-indent: 30px;
+}
+    .p1 {
+        font-family: "Lucida Console", "Courier New", monospace;
+        color: #1fff1f;
+        background-color: #050505;
+        text-indent: 0px;
+    }
+
+img.half{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+    .p3 {
+        font-size: 24px;
+        font-family: "Lucida Console", "Courier New", monospace;
+        color: #cccccc;
+    }
+a{
+    color: #FFbFFF;
+    text-decoration: none;
+}
+
+    h2 {
+        font-family: "Lucida Console", "Courier New", monospace;
+        color: #FFFFFF;
+        background-color: #0F0F0F;
+    }
+
+.headline{
+    margin: auto;
+    width: 75%;
+}
+    .tab {
+        margin-left: 40px;
+    }
+
+.articlebody {
+    margin: auto;
+    width: 100%;
+    padding: 12px;
+}
+
+</style>
+</head>
+<body>
+    <div class = "headline">
+        <h1>Trusting the Client
+               </h1>
+        <p class="p3">mapleint: Apr 8th, 2021</p>
+    </div>
+    <div class="articlebody">
+        <h2>> Cheating in Spanish</h2>
+        <p class="tab">
+            This is mostly me just testing the style and crap but also the web, this is my first time doing much outside of C, needless to say it's very simple stuff.
+            Today I'll show a way to cheat on <a href="http://spanish411.net">my spanish quizzes</a>, it's pretty simple so I'll get to the point:
+        </p>
+        <p class="tab">There are 3 main ways of cheating, I have used 2 will display a POC of one of them. The methods are using the console, using a script, and just sending packets</p>
+        <h2>> Console</h2>
+        <p class="tab">
+            A very simple way I did this is just to open the inspector and look at the JS, it appears that there is a global named attempts, I suspect it is the amount of attempts
+            (both successful and fails) of answering a problem.
+            This is only confirmed when you look at it through the console, every time I press enter, it alerts something and increments this
+            if we just set it to -.999 we get a final score of thousands of percents.
+        </p>
+        <img class ="half" src="https://mapleint.github.io/meida/highscore.jpg" alt="50000%, 5 verbs in .0099... attempts">
+        <p class="p1">>>attempt
+        <br />2<br />
+        >>attempt = -2 <br />-2</p>
+        <h2>> Scripts</h2>
+        <p class="tab">We can easily force the <p class="p1">if(conjugation != conj[verbNum][subjNum])</p>
+        <p class="tab"> to be <p class="p1">if(false)</p> <p class="tab">this allows you to enter any text and it will think its correct.</p>
+        <p class="p1">
+            var startTime = 0<br />
+            var timed = 'no'<br />
+            var secs = startTime<br />
+            var total = 5<br />
+            var i = 0<br />
+            var attempt = 0<br />
+        </p>
+        <p class="tab">Given these vars, especially attempts, i, and total, we can more than abuse these to improve the testing experience, <br /> this is left as an exercise to the reader ;)</p>
+        <h2>> Networking</h2>
+        <p class="tab">
+            With this site being HTTP, it's not just possible to change your own results in transit BUT others aswell, this is beyond asinine and should definitely be fixed before school resumes.
+            A MITM attack should'nt ever be feasible, so if anything just get an SSL certificate for this site and make it HTTPS.
+            Another issue is that the actual test scores are sent all at once and are very easy to spoof, you can change the score and such as it's all in plaintext; and I know, POC || GTFO, but this shouldn't even be <i>theoretically</i> possible
+        </p>
+        <h2>> How 2 fix????</h2>
+        <p class="tab">this is a somewhat complex issue that has no easy solution, it would require more server validation, pretty much a total rewrite of the system.</p>
+        <p class="tab">
+            currently, there is no information sent between the client and server (other than just downloading the page), what I think could work, is storing a hash of every solution, hashing the input from the user
+            checking if they're correct, and then giving it to them if they are, they will also upload the solution to the server in as close to real time as possible, and go on, if the server tells them they're wrong (which the client would've already known unless something funny is happening)
+            then they will be put back. This seems to be the best compromise between security and speed as it punish noones unnecessarily, at least it'd make it harder for me to just Ctrl + Shift + I it, I'd have to write a script to actually solve the problem.
+        </p>
+        <h2>> Closing thoughts</h2>
+        <p class="tab">No more thoughts. Head Empty.</p>
+    </div>
+</body>
+</html>

@@ -81,10 +81,10 @@ a{
             This is mostly me just testing the style and crap but also the web, this is my first time doing much outside of C, needless to say it's very simple stuff.
             Today I'll show a way to cheat on <a href="http://spanish411.net">my spanish quizzes</a>, it's pretty simple so I'll get to the point:
         </p>
-        <p class="tab">There are 3 main ways of cheating, I have used 2 will display a POC of one of them. The methods are using the console, using a script, and just sending packets</p>
+        <p class="tab">There are 3 main ways of cheating, I have used 2 will display a POC of two of them. The methods are using the console, using a script, and just sending packets</p>
         <h2>> Console</h2>
         <p class="tab">
-            A very simple way I did this is just to open the inspector and look at the JS, it appears that there is a global named attempts, I suspect it is the amount of attempts
+            A very simple way I did this is just to open the inspector and look at the JS, it appears that there is a global named attempts, I suspect it is the amount of guesses
             (both successful and fails) of answering a problem.
             This is only confirmed when you look at it through the console, every time I press enter, it alerts something and increments this
             if we just set it to -.999 we get a final score of thousands of percents.
@@ -97,26 +97,38 @@ a{
         <p class="tab">We can easily force the <p class="p1">if(conjugation != conj[verbNum][subjNum])</p>
         <p class="tab"> to be <p class="p1">if(false)</p> <p class="tab">this allows you to enter any text and it will think its correct.</p>
         <p class="p1">
-            var startTime = 0<br />
-            var timed = 'no'<br />
-            var secs = startTime<br />
-            var total = 5<br />
-            var i = 0<br />
-            var attempt = 0<br />
+            var startTime = 0; // if was timed, is set to time in seconds, secs counts down <br />
+            var timed = 'no'; // if selected timed, 'yes'<br />
+            var secs = startTime; // countdown (if timed) <br />
+            var total = 5; // is never reassinged, practically const<br />
+            var i = 0; // this is iterator, iterating to total<br />
+            var attempt = 0; //<br />
         </p>
-        <p class="tab">Given these vars, especially attempts, i, and total, we can more than abuse these to improve the testing experience, <br /> this is left as an exercise to the reader ;)</p>
+        <p class="tab">Given these vars, especially attempts, i, and total, we can more than abuse these to improve the testing experience, <br /> this is left as an exercise to the reader ;)
+		<br /> after having done fuck all for a bit, I don't really care nearly as much, I reversed it a bit more and found the function endPractice(message); <br />
+		this opens an alert box with the text of message, and ends the test with the score you had, this is abusable. <br />
+		Our previous idea of redefining the checkVerb() requires manually pressing ENTER, this is inefficient for our purposes of speedrunning.
+		I wrote up a quick script in tampermonkey to instantly finish the test for me, it </p>
+		<p class="p1">
+	i = total; // set iterator to total, bypasses all<br />
+    attempt = total; // score = total/attempt <br />
+    secs = Math.round((startTime * .6) - ((startTime * Math.random()) *.4));<br /> // set secs, it may be odd to have it done in 0s, so it's random <br />
+    endPractice(";)"); // ;) </p>
+	<p>You may find <a href="https://github.com/mapleint/411SpanishBypass/blob/main/411spanish.js">this script</a> on my <a href="https://github.com/mapleint">github</a></p>
         <h2>> Networking</h2>
         <p class="tab">
             With this site being HTTP, it's not just possible to change your own results in transit BUT others aswell, this is beyond asinine and should definitely be fixed before school resumes.
-            A MITM attack should'nt ever be feasible, so if anything just get an SSL certificate for this site and make it HTTPS.
-            Another issue is that the actual test scores are sent all at once and are very easy to spoof, you can change the score and such as it's all in plaintext; and I know, POC || GTFO, but this shouldn't even be <i>theoretically</i> possible
+            A MITM attack should'nt ever be feasible, so if anything just get an SSL certificate for this site and make it HTTPS.<br />
+			PS: you can force this site to be HTTPS, but the fact it connects fine with HTTP and doesn't upgrade by default is very bad.
+            Another issue is that the actual test scores are sent all at once and are very easy to spoof, you can change the score and such as it's all in plaintext; I know: POC || GTFO, but this shouldn't even be <i>theoretically</i> possible
         </p>
         <h2>> How 2 fix????</h2>
         <p class="tab">this is a somewhat complex issue that has no easy solution, it would require more server validation, pretty much a total rewrite of the system.</p>
         <p class="tab">
             currently, there is no information sent between the client and server (other than just downloading the page), what I think could work, is storing a hash of every solution, hashing the input from the user
             checking if they're correct, and then giving it to them if they are, they will also upload the solution to the server in as close to real time as possible, and go on, if the server tells them they're wrong (which the client would've already known unless something funny is happening)
-            then they will be put back. This seems to be the best compromise between security and speed as it punish noones unnecessarily, at least it'd make it harder for me to just Ctrl + Shift + I it, I'd have to write a script to actually solve the problem.
+            then they will be put back. This seems to be the best compromise between security and speed as it punish noones unnecessarily, at least it'd make it harder for me to just Ctrl + Shift + I it, I'd have to write a script to actually solve the problem.<br />
+		
         </p>
         <h2>> Closing thoughts</h2>
         <p class="tab">No more thoughts. Head Empty.</p>
